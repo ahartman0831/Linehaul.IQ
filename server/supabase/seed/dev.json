@@ -1,0 +1,84 @@
+{
+  "drivers": [
+    {
+      "id": "driver-1",
+      "name": "Alex Hartman",
+      "employee_number": "A1234",
+      "active": true
+    },
+    {
+      "id": "driver-2",
+      "name": "Jamie Lane",
+      "employee_number": "J5678",
+      "active": true
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-1",
+      "lane_id": "PHX-ABQ",
+      "origin": "Phoenix",
+      "destination": "Albuquerque",
+      "service_type": "Linehaul",
+      "active": true
+    }
+  ],
+  "dispatches": [
+    {
+      "id": "dispatch-1",
+      "route_id": "route-1",
+      "driver_id": "driver-1",
+      "status": "assigned",
+      "arrival_time": "2025-05-22T14:02:14.022563",
+      "hook_time": null,
+      "departure_time": null
+    },
+    {
+      "id": "dispatch-2",
+      "route_id": "route-1",
+      "driver_id": "driver-2",
+      "status": "hooked",
+      "arrival_time": "2025-05-22T14:02:14.022563",
+      "hook_time": "2025-05-22T16:02:14.022563",
+      "departure_time": null
+    }
+  ],
+  "dispatch_photos": [
+    {
+      "id": "photo-1",
+      "dispatch_id": "dispatch-1",
+      "driver_id": "driver-1",
+      "photo_url": "https://example.com/hook1.jpg",
+      "photo_type": "hook",
+      "validated": true,
+      "validation_notes": "Test upload 1"
+    },
+    {
+      "id": "photo-2",
+      "dispatch_id": "dispatch-2",
+      "driver_id": "driver-2",
+      "photo_url": "https://example.com/hook2.jpg",
+      "photo_type": "hook",
+      "validated": true,
+      "validation_notes": "Test upload 2"
+    }
+  ],
+  "dispatch_scores": [
+    {
+      "photo_id": "photo-1",
+      "clarity_score": 85,
+      "seal_score": 100,
+      "dolly_lock_score": 90,
+      "trailer_match_score": 95,
+      "gpt_feedback": "Great submission."
+    },
+    {
+      "photo_id": "photo-2",
+      "clarity_score": 75,
+      "seal_score": 90,
+      "dolly_lock_score": 85,
+      "trailer_match_score": 80,
+      "gpt_feedback": "Slight blur on dolly view."
+    }
+  ]
+}

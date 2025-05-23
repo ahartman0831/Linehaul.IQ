@@ -1,0 +1,10 @@
+
+Summarize the following dispatch call. Extract key actions, tone, and confirm if any issues were escalated.
+Transcript:
+{{transcript_text}}
+
+Return format:
+Summary: ...
+Tone: ...
+Score (1-10): ...
+Escalation: yes/no

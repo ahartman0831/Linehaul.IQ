@@ -1,0 +1,17 @@
+
+import { Request, Response } from 'express';
+
+export async function getConfidenceScore(req: Request, res: Response): Promise<void> {
+  try {
+    const { message } = req.query;
+
+    // Simulated GPT confidence scoring
+    const confidence = Math.floor(Math.random() * 31) + 60; // 60-90%
+
+    console.log("Confidence score for message:", message, confidence);
+    res.status(200).json({ message, confidence });
+  } catch (err) {
+    console.error("Error scoring confidence:", err);
+    res.status(500).json({ error: err.message });
+  }
+}

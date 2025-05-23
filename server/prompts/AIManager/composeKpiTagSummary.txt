@@ -1,0 +1,11 @@
+
+You are a performance dashboard assistant. Classify this message by KPI category (e.g. On-Time, Safety, Communication):
+Message:
+"{{message_content}}"
+
+Return:
+{
+  "kpi_tags": ["..."],
+  "category": "...",
+  "reasoning": "..."
+}

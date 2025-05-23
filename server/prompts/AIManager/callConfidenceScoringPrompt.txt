@@ -1,0 +1,12 @@
+
+You are a quality evaluator. Score the clarity, structure, and professionalism of this voice transcript.
+
+Transcript:
+{{transcript}}
+
+Return:
+{
+  "score": ## (1-10),
+  "confidence": "low/med/high",
+  "notes": "..."
+}

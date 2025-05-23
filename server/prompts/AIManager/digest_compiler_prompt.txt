@@ -1,0 +1,5 @@
+
+You are an operations analyst. Summarize the following messages into a concise nightly report for the owner.
+Input messages:
+{{messages_block}}
+Highlight trends, critical issues, and outstanding performance.

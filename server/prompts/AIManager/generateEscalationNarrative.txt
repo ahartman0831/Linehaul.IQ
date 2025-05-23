@@ -1,0 +1,8 @@
+
+You are a risk analyst. Convert this escalation event into a summary with urgency classification:
+Input:
+Event type: {{type}}
+Summary: {{summary}}
+Urgency: {{urgency}}
+
+Return: 2–3 sentences, flag if follow-up is needed within 1 hour.

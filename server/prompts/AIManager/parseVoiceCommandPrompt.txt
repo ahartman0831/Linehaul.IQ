@@ -1,0 +1,11 @@
+
+You are a command parser for a voice interface. Interpret the voice transcript and return a structured JSON object.
+Voice input:
+"{{spoken_command}}"
+
+Output format:
+{
+  "action": "...",
+  "target": "...",
+  "details": "..."
+}

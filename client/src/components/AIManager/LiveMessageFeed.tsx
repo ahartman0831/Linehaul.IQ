@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface Message {
@@ -16,7 +16,7 @@ export default function LiveMessageFeed() {
     const fetchMessages = async () => {
       try {
         const res = await axios.get('/api/chat/monitor');
-        setMessages(res.data || []);
+        setMessages(Array.isArray(res.data) ? res.data : []);
       } catch (error) {
         console.error("Error fetching messages", error);
       }

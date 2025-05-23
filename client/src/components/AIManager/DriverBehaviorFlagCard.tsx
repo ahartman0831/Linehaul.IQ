@@ -1,5 +1,4 @@
 
-import React from 'react';
 
 export default function DriverBehaviorFlagCard({ flag }: { flag: { message: string, driverName: string, scoreDelta: string } }) {
   if (!flag) return null;

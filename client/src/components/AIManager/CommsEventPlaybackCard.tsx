@@ -1,7 +1,18 @@
 
-import React from 'react';
 
-export default function CommsEventPlaybackCard({ message, onReplay }) {
+type CommsEventMessage = {
+  id: string;
+  channel: string;
+  type: string;
+  timestamp: string;
+};
+
+type CommsEventPlaybackCardProps = {
+  message: CommsEventMessage;
+  onReplay: (id: string) => void;
+};
+
+export default function CommsEventPlaybackCard({ message, onReplay }: CommsEventPlaybackCardProps) {
   return (
     <div className="p-3 bg-white border shadow-sm rounded flex justify-between items-center">
       <div>

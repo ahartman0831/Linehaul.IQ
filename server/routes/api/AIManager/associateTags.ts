@@ -13,7 +13,7 @@ export async function associateTags(req: Request, res: Response): Promise<void> 
 
     res.status(200).json({ success: true, data });
   } catch (err) {
-    console.error("Tag association error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

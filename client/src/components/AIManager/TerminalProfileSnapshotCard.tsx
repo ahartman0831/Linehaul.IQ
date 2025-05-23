@@ -1,14 +1,24 @@
-
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function TerminalProfileSnapshotCard({ terminalId }) {
-  const [profile, setProfile] = useState(null);
+interface TerminalProfile {
+  name: string;
+  region: string;
+  contact: string;
+  issues_summary: string;
+}
+
+interface Props {
+  terminalId: string;
+}
+
+export default function TerminalProfileSnapshotCard({ terminalId }: Props) {
+  const [profile, setProfile] = useState<TerminalProfile | null>(null);
 
   useEffect(() => {
     if (!terminalId) return;
     axios.get(`/api/fedex/terminalProfile?id=${terminalId}`)
-      .then(res => setProfile(res.data))
+      .then(res => setProfile(res.data as TerminalProfile))
       .catch(err => console.error("Failed to load terminal profile", err));
   }, [terminalId]);
 

@@ -1,5 +1,4 @@
 
-import React from 'react';
 
 export default function CommsConfidenceScoreTag({ score }: { score: number }) {
   let color = "text-gray-500";

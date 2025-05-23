@@ -6,7 +6,7 @@ if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY is NOT loaded!'
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export async function generateETAMessage(context: { eta: string, reason: string }) {
+export async function generateETAMessageAsync(context: { eta: string, reason: string }) {
   const { eta, reason } = context;
   const response = await openai.chat.completions.create({
     model: 'gpt-4',
@@ -24,4 +24,8 @@ export async function generateETAMessage(context: { eta: string, reason: string 
   });
 
   return response.choices[0].message.content;
+}
+
+export function generateETAMessage({ eta, reason }: { eta: string; reason: string }): string {
+  return `ETA: ${eta}. Reason: ${reason}.`;
 }

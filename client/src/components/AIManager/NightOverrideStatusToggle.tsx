@@ -1,19 +1,19 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function NightOverrideStatusToggle() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    axios.get('/api/ai/nightOverrideStatus').then(res => {
-      setEnabled(res.data?.enabled || false);
+    axios.get<{ enabled: boolean }>('/api/ai/nightOverrideStatus').then(res => {
+      setEnabled(res.data?.enabled ?? false);
     }).catch(err => console.error("Fetch override status failed", err));
   }, []);
 
   const toggleOverride = async () => {
     try {
-      const res = await axios.post('/api/ai/nightOverrideStatus', { enabled: !enabled });
+      const res = await axios.post<{ enabled: boolean }>('/api/ai/nightOverrideStatus', { enabled: !enabled });
       setEnabled(res.data?.enabled);
     } catch (err) {
       console.error("Failed to toggle override", err);

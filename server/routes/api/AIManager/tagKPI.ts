@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -13,7 +12,8 @@ export async function tagKPI(req: Request, res: Response): Promise<void> {
     if (error) throw error;
     res.status(200).json({ success: true, data });
   } catch (err) {
-    console.error("KPI tag insert error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error("KPI tag insert error:", message);
+    res.status(500).json({ error: message });
   }
 }

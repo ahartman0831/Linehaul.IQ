@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { callGPT } from '../../../lib/gpt';
 
@@ -8,7 +7,7 @@ export async function respond(req: Request, res: Response): Promise<void> {
     const reply = await callGPT(`Respond professionally to: "${message}"`);
     res.status(200).json({ reply });
   } catch (err) {
-    console.error("GPT response error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

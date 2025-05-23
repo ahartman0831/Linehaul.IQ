@@ -1,7 +1,10 @@
+interface NightTreeState {
+  auto: boolean;
+  override: boolean;
+  last_escalation: string;
+}
 
-import React from 'react';
-
-export default function NightTreeStatusPanel({ state }) {
+export default function NightTreeStatusPanel({ state }: { state: NightTreeState }) {
   return (
     <div className="p-4 border rounded bg-slate-50">
       <h4 className="text-sm font-bold">Night Routing Tree Status</h4>

@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function DispatchCallSummaryModal({ callId, onClose }: { callId: string; onClose: () => void }) {

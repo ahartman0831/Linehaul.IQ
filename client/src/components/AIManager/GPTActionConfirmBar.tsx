@@ -1,7 +1,11 @@
 
-import React from 'react';
 
-export default function GPTActionConfirmBar({ message, onConfirm }) {
+type GPTActionConfirmBarProps = {
+  message: string;
+  onConfirm: () => void;
+};
+
+export default function GPTActionConfirmBar({ message, onConfirm }: GPTActionConfirmBarProps) {
   return (
     <div className="bg-emerald-50 p-3 rounded flex justify-between items-center shadow">
       <div className="text-sm text-emerald-800">{message}</div>

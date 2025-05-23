@@ -1,17 +1,17 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function GPTRoutingTunerPanel() {
   const [mode, setMode] = useState("auto");
 
   useEffect(() => {
-    axios.get('/api/ai/toggleMode').then(res => setMode(res.data?.mode || "auto"));
+    axios.get<{ mode: string }>('/api/ai/toggleMode').then(res => setMode(res.data?.mode || "auto"));
   }, []);
 
   const handleToggle = async () => {
     try {
-      const res = await axios.post('/api/ai/toggleMode', { mode: mode === "auto" ? "manual" : "auto" });
+      const res = await axios.post<{ mode: string }>('/api/ai/toggleMode', { mode: mode === "auto" ? "manual" : "auto" });
       setMode(res.data.mode);
     } catch (err) {
       console.error("Toggle routing mode failed", err);

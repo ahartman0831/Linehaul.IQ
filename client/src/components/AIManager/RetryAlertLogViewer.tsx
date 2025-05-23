@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface AlertRetry {
@@ -13,7 +13,7 @@ export default function RetryAlertLogViewer() {
 
   useEffect(() => {
     axios.get('/api/ai/retriggerAlert').then(res => {
-      setLogs(res.data || []);
+      setLogs(Array.isArray(res.data) ? res.data : []);
     }).catch(err => console.error("Failed to load retry logs", err));
   }, []);
 

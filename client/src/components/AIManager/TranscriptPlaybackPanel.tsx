@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 export default function TranscriptPlaybackPanel({ eventId }: { eventId: string }) {
   const [event, setEvent] = useState<any>(null);

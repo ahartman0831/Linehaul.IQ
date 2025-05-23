@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -13,6 +12,7 @@ export async function contractorRadar(req: Request, res: Response): Promise<void
     res.status(200).json(data);
   } catch (err) {
     console.error("Contractor radar error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

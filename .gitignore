@@ -1,0 +1,39 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs and debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite cache
+.vite/
+
+# Local env and secrets
+.env
+.env.local
+.env.*.local
+
+# Supabase CLI
+.supabase/
+supabase/.temp/
+
+# Mac and system files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional, but common)
+.vscode/
+
+# Coverage and testing
+coverage/
+*.lcov
+
+# Lock files (optional — uncomment if you don’t want to commit lock files)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

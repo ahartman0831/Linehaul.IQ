@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { callGPT } from '../../../lib/gpt';
 
@@ -12,6 +11,7 @@ export async function parseVoiceCommand(req: Request, res: Response): Promise<vo
     res.status(200).json({ task: gptResponse });
   } catch (err) {
     console.error("Voice command parse error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

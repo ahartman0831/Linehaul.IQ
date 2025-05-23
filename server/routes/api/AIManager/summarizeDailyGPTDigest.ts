@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 import { callGPT } from '../../../lib/gpt';
@@ -7,7 +6,7 @@ export async function summarizeDailyGPTDigest(req: Request, res: Response): Prom
   try {
     const { messages } = req.body;
 
-    const prompt = `Summarize these messages into a clear nightly digest:\n${messages.map(m => `- ${m}`).join("\n")}`;
+    const prompt = `Summarize these messages into a clear nightly digest:\n${messages.map((m: string) => `- ${m}`).join("\n")}`;
     const gptResponse = await callGPT(prompt);
 
     const { data, error } = await supabaseAdmin
@@ -19,6 +18,7 @@ export async function summarizeDailyGPTDigest(req: Request, res: Response): Prom
     res.status(200).json({ summary: gptResponse });
   } catch (err) {
     console.error("GPT digest error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

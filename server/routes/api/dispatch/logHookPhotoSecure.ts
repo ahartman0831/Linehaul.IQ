@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export default async function logHookPhotoSecure(req: Request, res: Response): Promise<void> {
+export async function logHookPhotoSecure(req: Request, res: Response): Promise<Response> {
   const { driver_id, route_id, photo_url } = req.body;
 
   if (!driver_id || !route_id || !photo_url) {
@@ -26,5 +26,5 @@ export default async function logHookPhotoSecure(req: Request, res: Response): P
   }
 
   console.log('✅ Hook photo logged securely for', driver_id, photo_url);
-  res.status(200).json({ status: 'success' });
+  return res.status(200).json({ status: 'success' });
 }

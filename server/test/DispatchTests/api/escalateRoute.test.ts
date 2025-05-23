@@ -1,10 +1,11 @@
-
-import { escalateRoute } from '@/routes/api/dispatch/escalateRoute';
-import { describe, it, expect, vi } from 'vitest';
+import { escalateRoute } from '../../../routes/api/dispatch/escalateRoute';
+import { describe, it, expect, jest } from '@jest/globals';
 import { Request, Response } from 'express';
 
-vi.mock('@/lib/utils/DispatchUtils/escalationTrigger', () => ({
-  runEscalationLogic: vi.fn().mockResolvedValue({
+import type { runEscalationLogic as runEscalationLogicType } from '../../../lib/utils/DispatchUtils/escalationTrigger';
+
+jest.mock('../../../lib/utils/DispatchUtils/escalationTrigger', () => {
+  const mockReturn: ReturnType<typeof import('../../../lib/utils/DispatchUtils/escalationTrigger')['runEscalationLogic']> = Promise.resolve({
     contact_name: 'Sam Manager',
     contact_phone: '555-123-4567',
     dispatchData: {
@@ -19,20 +20,18 @@ vi.mock('@/lib/utils/DispatchUtils/escalationTrigger', () => ({
       delay_reason: 'gate congestion',
       is_adhoc: false
     }
-  })
-}));
-
-
-
-
-
+  } as any);
+  return {
+    runEscalationLogic: jest.fn().mockReturnValue(mockReturn)
+  };
+});
 
 describe('escalateRoute', () => {
   it('should log escalation summary', async () => {
     const req = { body: { dispatchId: '00000000-0000-0000-0000-000000000001' } } as Request;
     const res = {
-      status: vi.fn().mockReturnThis(),
-      json: vi.fn()
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
     } as unknown as Response;
 
     await escalateRoute(req, res);

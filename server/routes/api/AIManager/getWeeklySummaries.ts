@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -14,6 +13,7 @@ export async function getWeeklySummaries(req: Request, res: Response): Promise<v
     res.status(200).json(data);
   } catch (err) {
     console.error("Weekly summaries fetch error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -13,6 +12,7 @@ export async function breakdown(req: Request, res: Response): Promise<void> {
     res.status(200).json({ success: true, data });
   } catch (err) {
     console.error("Breakdown intake error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

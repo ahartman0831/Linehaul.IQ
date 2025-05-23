@@ -1,7 +1,11 @@
+interface Terminal {
+  name: string;
+  region: string;
+  response_rate: number;
+  alert_count: number;
+}
 
-import React from 'react';
-
-export default function TerminalScorecard({ terminal }) {
+export default function TerminalScorecard({ terminal }: { terminal: Terminal }) {
   return (
     <div className="p-4 bg-white shadow rounded">
       <h3 className="text-md font-bold">{terminal.name}</h3>

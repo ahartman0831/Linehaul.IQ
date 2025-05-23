@@ -1,5 +1,15 @@
 import { getDispatches } from '../../../routes/api/dispatch/getDispatches';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, jest } from '@jest/globals';
+
+jest.mock('../../../lib/supabaseAdmin', () => ({
+  supabaseAdmin: {
+    from: () => ({
+      select: () => ({
+        neq: async () => ({ data: [{ id: 'mock-dispatch' }], error: null })
+      })
+    })
+  }
+}));
 
 describe('getDispatches', () => {
   it('should return dispatches without status complete', async () => {

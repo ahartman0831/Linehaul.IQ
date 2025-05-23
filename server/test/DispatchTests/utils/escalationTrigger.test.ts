@@ -1,12 +1,12 @@
+import { runEscalationLogic } from '../../../lib/utils/DispatchUtils/escalationTrigger';
+import { describe, it, expect, jest } from '@jest/globals';
 
-import { runEscalationLogic } from '@/lib/utils/DispatchUtils/escalationTrigger';
-import { describe, it, expect, vi } from 'vitest';
-
-vi.mock('@/lib/utils/DispatchUtils/escalationTrigger', async () => {
-  const actual = await vi.importActual('@/lib/utils/DispatchUtils/escalationTrigger');
+jest.mock('../../../lib/utils/DispatchUtils/escalationTrigger', () => {
+  const actual = jest.requireActual('../../../lib/utils/DispatchUtils/escalationTrigger') || {};
   return {
-    ...actual,
-    runEscalationLogic: vi.fn(async () => ({
+    ...(typeof actual === 'object' && actual !== null ? actual : {}),
+    ...actual ?? {},
+    runEscalationLogic: jest.fn(async () => ({
       contact: 'Driver Joe',
       dispatchData: {
         id: 'test-id',

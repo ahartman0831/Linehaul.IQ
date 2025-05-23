@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -14,7 +13,7 @@ export async function sendCoachingNudge(req: Request, res: Response): Promise<vo
     console.log("Coaching nudge logged:", data);
     res.status(200).json({ status: 'success', data });
   } catch (err) {
-    console.error("Nudge error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

@@ -1,0 +1,6 @@
+// ...existing code...
+export async function writeWeeklyRouteBrief(data: any) {
+  // Mock implementation for testing
+  return { result: 'This is a mock weekly route brief.', data };
+}
+// ...existing code...

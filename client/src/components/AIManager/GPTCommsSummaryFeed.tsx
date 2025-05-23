@@ -1,13 +1,18 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+interface Summary {
+  summary: string;
+  generated_at: string;
+}
+
 export default function GPTCommsSummaryFeed() {
-  const [summaries, setSummaries] = useState([]);
+  const [summaries, setSummaries] = useState<Summary[]>([]);
 
   useEffect(() => {
     axios.get('/api/summaries/daily')
-      .then(res => setSummaries(res.data || []))
+      .then(res => setSummaries(Array.isArray(res.data) ? res.data : []))
       .catch(err => console.error("GPT summary fetch failed", err));
   }, []);
 

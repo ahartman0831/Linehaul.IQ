@@ -1,11 +1,11 @@
-import { analyzeHookPhoto } from '@/routes/gpt/reviewHookPhoto';
-import { describe, it, expect, vi } from 'vitest';
+import { analyzeHookPhoto } from '../../../routes/gpt/reviewHookPhoto';
+import { describe, it, expect, jest } from '@jest/globals';
 
-vi.mock('openai', () => ({
-  OpenAI: vi.fn().mockImplementation(() => ({
+jest.mock('openai', () => ({
+  OpenAI: jest.fn().mockImplementation(() => ({
     chat: {
       completions: {
-        create: vi.fn().mockResolvedValue({
+        create: (jest.fn() as any).mockResolvedValue({
           choices: [{ message: { content: 'Mocked GPT feedback' } }]
         })
       }
@@ -14,8 +14,8 @@ vi.mock('openai', () => ({
 }));
 
 describe('analyzeHookPhoto', () => {
-  it('should return a hook photo analysis object', async () => {
-    const result = await analyzeHookPhoto('http://fakeurl.com/photo.jpg', {});
-    expect(result).toHaveProperty('clarity');
+  it('should return a string with GPT feedback', async () => {
+    const result = await analyzeHookPhoto('photo_url', {});
+    expect(typeof result).toBe('string');
   }, 10000);
 });

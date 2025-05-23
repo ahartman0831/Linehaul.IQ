@@ -1,7 +1,11 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function CallTranscriptSearch({ onSearch }) {
+interface CallTranscriptSearchProps {
+  onSearch: (term: string) => void;
+}
+
+export default function CallTranscriptSearch({ onSearch }: CallTranscriptSearchProps) {
   const [term, setTerm] = useState("");
 
   return (

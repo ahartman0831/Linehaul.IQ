@@ -23,13 +23,5 @@ export async function analyzeHookPhoto(photoUrl: string, exifData: any) {
   });
 
   const text = response.choices[0].message.content;
-
-  return {
-    clarity: 85,
-    seal: 100,
-    dolly: 90,
-    trailer: 95,
-    feedback: text,
-    notes: 'AI-generated hook validation complete.'
-  };
+  return text ?? '';
 }

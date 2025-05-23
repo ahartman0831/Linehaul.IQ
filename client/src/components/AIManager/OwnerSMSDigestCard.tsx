@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface Digest {
@@ -14,7 +14,7 @@ export default function OwnerSMSDigestCard() {
     const getDigest = async () => {
       try {
         const res = await axios.get('/api/summary/nightDigest');
-        setDigest(res.data);
+        setDigest(res.data as Digest);
       } catch (error) {
         console.error("Failed to fetch nightly digest", error);
       }

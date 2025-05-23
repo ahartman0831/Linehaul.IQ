@@ -1,7 +1,10 @@
 
-import React from 'react';
 
-export default function DecisionAuditTrail({ audit }) {
+type Audit = {
+  steps?: string[];
+};
+
+export default function DecisionAuditTrail({ audit }: { audit: Audit }) {
   return (
     <div className="p-4 bg-gray-50 rounded border">
       <h3 className="text-md font-bold mb-2">GPT Decision Trail</h3>

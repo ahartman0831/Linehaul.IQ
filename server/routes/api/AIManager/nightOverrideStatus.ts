@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -25,7 +24,7 @@ export async function nightOverrideStatus(req: Request, res: Response): Promise<
       res.status(405).json({ error: 'Method not allowed' });
     }
   } catch (err) {
-    console.error("Error in night override status handler:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

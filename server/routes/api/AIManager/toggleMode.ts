@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
@@ -11,7 +10,7 @@ export async function toggleMode(req: Request, res: Response): Promise<void> {
         .eq('key', 'routing_mode')
         .single();
       if (error) throw error;
-      return res.status(200).json({ mode: data.value });
+      res.status(200).json({ mode: data.value });
     }
 
     const { mode } = req.body;
@@ -22,7 +21,7 @@ export async function toggleMode(req: Request, res: Response): Promise<void> {
     if (error) throw error;
     res.status(200).json({ mode });
   } catch (err) {
-    console.error("Toggle mode error:", err);
-    res.status(500).json({ error: err.message });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
 }

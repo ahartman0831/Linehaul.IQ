@@ -1,10 +1,10 @@
-
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import type { Request, Response, NextFunction, RequestHandler } from 'express';
 
 import validateHookPhoto from './routes/api/dispatch/validateHookPhoto';
-import logHookPhotoSecure from './routes/api/dispatch/logHookPhotoSecure';
+import { logHookPhotoSecure } from './routes/api/dispatch/logHookPhotoSecure';
 
 // 24/7 AI Intelligence Manager imports
 import { ingestMessage } from './routes/api/AIManager/ingestMessage';
@@ -27,15 +27,28 @@ import { tagKPI } from './routes/api/AIManager/tagKPI';
 import { logDispatchTranscript } from './routes/api/AIManager/logDispatchTranscript';
 import { associateTags } from './routes/api/AIManager/associateTags';
 import { parseVoiceCommand } from './routes/api/AIManager/parseVoiceCommand';
-
+import { respond } from './routes/api/AIManager/respond';
+import { chatMonitor } from './routes/api/AIManager/chatMonitor';
+import { breakdown } from './routes/api/AIManager/breakdown';
+import { scheduleDowntime } from './routes/api/AIManager/scheduleDowntime';
+import { contractorRadar } from './routes/api/AIManager/contractorRadar';
+import { getWeeklySummaries } from './routes/api/AIManager/getWeeklySummaries';
+import { getTranscripts } from './routes/api/AIManager/getTranscripts';
+import { writeWeeklyRouteBriefHandler } from './routes/api/AIManager/writeWeeklyRouteBrief';
 dotenv.config();
 
-const app = express();
+export const app = express();
 app.use(bodyParser.json());
+
+// Utility to wrap async route handlers
+const asyncHandler =
+  (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>): RequestHandler =>
+  (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
 // Existing Dispatch Routes
 app.post('/api/dispatch/validateHookPhoto', validateHookPhoto);
-app.post('/api/dispatch/logHookPhotoSecure', logHookPhotoSecure);
+app.post('/api/dispatch/logHookPhotoSecure', asyncHandler(logHookPhotoSecure));
 
 // AI Intelligence Manager Routes
 app.post('/api/ai/ingestMessage', ingestMessage);
@@ -58,7 +71,14 @@ app.post('/api/data-intel/tagKPI', tagKPI);
 app.post('/api/ai/logDispatchTranscript', logDispatchTranscript);
 app.post('/api/data-intel/associateTags', associateTags);
 app.post('/api/voice/parseCommand', parseVoiceCommand);
-
+app.post('/api/ai/respond', respond);
+app.get('/api/chat/monitor', chatMonitor);
+app.post('/api/maintenance/breakdown', breakdown);
+app.post('/api/maintenance/schedule', scheduleDowntime);
+app.get('/api/analytics/contractorRadar', contractorRadar);
+app.get('/api/summaries/weekly', getWeeklySummaries);
+app.get('/api/voice/transcripts', getTranscripts);
+app.post('/api/ai/writeWeeklyRouteBrief', writeWeeklyRouteBriefHandler);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚚 LinehaulIQ server running on http://localhost:${PORT}`);

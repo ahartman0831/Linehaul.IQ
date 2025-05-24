@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
@@ -35,6 +36,8 @@ import { contractorRadar } from './routes/api/AIManager/contractorRadar';
 import { getWeeklySummaries } from './routes/api/AIManager/getWeeklySummaries';
 import { getTranscripts } from './routes/api/AIManager/getTranscripts';
 import { writeWeeklyRouteBriefHandler } from './routes/api/AIManager/writeWeeklyRouteBrief';
+import twilioWebhook from './routes/api/AIManager/twilio/webhook';
+
 dotenv.config();
 
 export const app = express();
@@ -79,6 +82,8 @@ app.get('/api/analytics/contractorRadar', contractorRadar);
 app.get('/api/summaries/weekly', getWeeklySummaries);
 app.get('/api/voice/transcripts', getTranscripts);
 app.post('/api/ai/writeWeeklyRouteBrief', writeWeeklyRouteBriefHandler);
+app.use('/api/ai-manager/twilio', twilioWebhook);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚚 LinehaulIQ server running on http://localhost:${PORT}`);

@@ -1,6 +1,5 @@
 
-import React from 'react';
-import DriverBehaviorFlagCard from '../components/AIManager/DriverBehaviorFlagCard';
+import DriverBehaviorFlagCard from '../../components/AIManager/DriverBehaviorFlagCard';
 
 export default function DriverFlagReview() {
   const testFlag = {

@@ -1,0 +1,1 @@
+Extract all legible text from the hook slip image at URL: {{image_url}}. Return text as JSON.

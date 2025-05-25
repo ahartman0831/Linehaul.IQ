@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import ScheduleBuilder from '@/components/ScheduleBuilder';
-import { supabase } from '@/lib/supabaseClient';
 
-export default function SchedulePage() {
-  const [scheduleData, setScheduleData] = useState([]);
-
-  useEffect(() => {
-    const fetchSchedule = async () => {
-      const { data, error } = await supabase.from('schedules').select('*');
-      if (!error) setScheduleData(data);
-    };
-    fetchSchedule();
-  }, []);
-
+const Schedule = () => {
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Weekly Schedule</h1>
-      <ScheduleBuilder schedule={scheduleData} />
+    <div className="p-6">
+      <h1 className="text-2xl font-bold">Schedule</h1>
+      <p>Schedule Board will go here.</p>
     </div>
   );
-}
+};
+
+export default Schedule;

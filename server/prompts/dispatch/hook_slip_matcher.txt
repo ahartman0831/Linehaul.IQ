@@ -1,0 +1,1 @@
+Match this hook slip text to Dispatch ID {{dispatch_id}}: {{slip_text}}. Return confidence score and details.

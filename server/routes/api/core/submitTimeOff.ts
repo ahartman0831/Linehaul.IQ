@@ -1,13 +1,22 @@
+
+import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
-export async function POST(req: Request): Promise<Response> {
-  const { driver_id, start_date, end_date, reason }: {
-    driver_id: string, start_date: string, end_date: string, reason: string
-  } = await req.json();
+export default async function submitTimeOff(req: Request, res: Response) {
+  const { driverId, startDate, endDate, reason } = req.body;
 
-  const { error } = await supabaseAdmin.from('time_off_requests').insert({
-    driver_id, start_date, end_date, reason, status: 'pending'
-  });
+  if (!driverId || !startDate || !endDate) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-  return new Response(JSON.stringify({ success: !error, error }), { status: error ? 400 : 200 });
+  try {
+    const { data, error } = await supabaseAdmin.from('pto_requests').insert([{ driver_id: driverId, start_date: startDate, end_date: endDate, reason }]);
+    if (error) throw error;
+
+    console.log('[submitTimeOff] PTO submitted:', driverId, startDate, endDate);
+    res.status(200).json({ message: 'PTO submitted successfully', data });
+  } catch (error: any) {
+    console.error('[submitTimeOff] Error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 }

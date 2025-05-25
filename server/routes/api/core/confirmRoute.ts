@@ -1,18 +1,22 @@
+
+import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 
-export async function POST(req: Request): Promise<Response> {
-  const { driver_id, route_id, scheduled_time, confirmation_type, status }: {
-    driver_id: string, route_id: string, scheduled_time: string, confirmation_type: string, status: string
-  } = await req.json();
+export default async function confirmRoute(req: Request, res: Response) {
+  const { driverId, routeId, confirmation } = req.body;
 
-  const { error } = await supabaseAdmin.from('route_confirmations').insert({
-    driver_id,
-    route_id,
-    scheduled_time,
-    confirmation_time: new Date().toISOString(),
-    confirmation_type,
-    status
-  });
+  if (!driverId || !routeId || !confirmation) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-  return new Response(JSON.stringify({ success: !error, error }), { status: error ? 400 : 200 });
+  try {
+    const { data, error } = await supabaseAdmin.from('driver_assignments').update({ confirmed: confirmation }).match({ driver_id: driverId, route_id: routeId });
+    if (error) throw error;
+
+    console.log('[confirmRoute] Confirmation updated:', driverId, routeId);
+    res.status(200).json({ message: 'Route confirmation updated', data });
+  } catch (error: any) {
+    console.error('[confirmRoute] Error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 }

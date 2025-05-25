@@ -1,0 +1,52 @@
+{
+  "dispatch_module": {
+    "frontend_components": [
+      "DispatchPhotoUploader.tsx",
+      "PhotoValidationCard.tsx",
+      "DwellTimeline.tsx",
+      "DwellAlertCard.tsx",
+      "ETAMessageComposer.tsx",
+      "EscalationQueuePanel.tsx",
+      "HookSlipOCRViewer.tsx",
+      "DispatchScoreBar.tsx",
+      "HookScoreFeedbackBox.tsx",
+      "DispatchDashboardPanel.tsx",
+      "WeeklyBriefCard.tsx",
+      "DispatchTimelineBar.tsx",
+      "DispatchMapPanel.tsx",
+      "HookPhotoReviewPanel.tsx",
+      "DispatchDetailPage.tsx",
+      "DispatchMetricsWidget.tsx"
+    ],
+    "backend_api_routes": [
+      "/api/photo/analyzePhoto",
+      "/api/photo/getPhotoScorecard",
+      "/api/dispatch/dwellTracker",
+      "/api/dispatch/dwellSummary",
+      "/api/etaNotifier/send",
+      "/api/escalation/trigger",
+      "/api/gpt/generateEscalationSummary",
+      "/api/hookSlip/parse",
+      "/api/hookSlip/match",
+      "/api/briefing/generate"
+    ],
+    "gpt_prompts_txt": [
+      "escalation_summary.txt",
+      "hook_slip_parser.txt",
+      "hook_slip_matcher.txt",
+      "weekly_route_digest.txt",
+      "hook_photo_scorer.txt"
+    ],
+    "supabase_tables": [
+      "dispatch_photos",
+      "photo_scores",
+      "trip_logs",
+      "dwell_time_records",
+      "eta_messages",
+      "escalation_events",
+      "hook_slips",
+      "dispatches",
+      "briefing_logs"
+    ]
+  }
+}

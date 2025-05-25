@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const ResponseCard = ({ text }: { text: string }) => {
+const ResponseCard = ({ text }: { text: string }) => {
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
 
   const handleGenerateAudio = async () => {
@@ -24,3 +24,5 @@ export const ResponseCard = ({ text }: { text: string }) => {
     </div>
   );
 };
+
+export default ResponseCard;

@@ -1,0 +1,1 @@
+Parse and summarize voice confirmation data from drivers.

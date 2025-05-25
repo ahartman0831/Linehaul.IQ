@@ -1,0 +1,1 @@
+Generate a concise escalation summary for Dispatch ID {{dispatch_id}} regarding issue: {{issue}}.

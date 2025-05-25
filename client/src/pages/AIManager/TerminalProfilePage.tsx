@@ -1,5 +1,4 @@
 
-import React from 'react';
 import TerminalProfileSnapshotCard from '../../components/AIManager/TerminalProfileSnapshotCard';
 
 export default function TerminalProfilePage() {

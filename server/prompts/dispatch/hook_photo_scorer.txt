@@ -1,0 +1,1 @@
+Evaluate the hook photo at {{photo_url}} for safety and compliance. Score 0-100 and explain any issues.

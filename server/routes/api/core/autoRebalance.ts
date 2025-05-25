@@ -1,15 +1,18 @@
+
+import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
+import fs from 'fs';
+import path from 'path';
 
-async function runSmartScheduler({ route_id }: { route_id: string }): Promise<{ suggested_driver_id: string, notes: string }> {
-  // TODO: Replace this mock with real GPT logic
-  return {
-    suggested_driver_id: 'mock-driver-123',
-    notes: 'Suggested based on availability and HOS'
-  };
-}
+export default async function autoRebalance(req: Request, res: Response) {
+  try {
+    const promptPath = path.resolve(__dirname, '../../../prompts/core/gpt_rebalance_plan.txt');
+    const prompt = fs.readFileSync(promptPath, 'utf-8');
+    console.log('[autoRebalance] Prompt loaded:', prompt);
 
-export async function POST(req: Request): Promise<Response> {
-  const { route_id }: { route_id: string } = await req.json();
-  const suggestion = await runSmartScheduler({ route_id });
-  return new Response(JSON.stringify({ suggestion }), { status: 200 });
+    res.status(200).json({ message: 'Rebalance simulated' });
+  } catch (error: any) {
+    console.error('[autoRebalance] Error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 }

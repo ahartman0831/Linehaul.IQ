@@ -17,5 +17,5 @@ export const getAvailableVoices = async () => {
   const response = await axios.get('https://api.elevenlabs.io/v1/voices', {
     headers: { 'xi-api-key': process.env.ELEVENLABS_API_KEY },
   });
-  return response.data.voices;
+  return (response.data as { voices: any[] }).voices;
 };

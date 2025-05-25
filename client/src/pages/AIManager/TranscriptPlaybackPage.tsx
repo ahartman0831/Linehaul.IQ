@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
-import TranscriptPlaybackPanel from '../components/AIManager/TranscriptPlaybackPanel';
-import CommsEventPlaybackCard from '../components/AIManager/CommsEventPlaybackCard';
+import { useState } from 'react';
+import TranscriptPlaybackPanel from '../../components/AIManager/TranscriptPlaybackPanel';
+import CommsEventPlaybackCard from '../../components/AIManager/CommsEventPlaybackCard';
 
 export default function TranscriptPlaybackPage() {
   const [selectedId, setSelectedId] = useState("sample-event-001");

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { runEscalationLogic } from '@/lib/utils/DispatchUtils/escalationTrigger';
 
-export async function escalateRoute(req: Request, res: Response): Promise<void> {
+export async function escalateRoute(req: Request, res: Response) {
   const dispatchId = req.body.dispatchId || req.query.dispatchId;
 
   try {

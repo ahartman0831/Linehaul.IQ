@@ -1,0 +1,1 @@
+Write a weekly route summary for Route ID {{route_id}}, highlighting performance, issues, and trends.

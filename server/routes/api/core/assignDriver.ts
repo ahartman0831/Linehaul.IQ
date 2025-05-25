@@ -1,13 +1,24 @@
+
+import { Request, Response } from 'express';
 import { supabaseAdmin } from '../../../lib/supabaseAdmin';
+import fs from 'fs';
+import path from 'path';
 
-export async function POST(req: Request): Promise<Response> {
-  const { driver_id, route_id, scheduled_date, shift_type, created_by }: {
-    driver_id: string, route_id: string, scheduled_date: string, shift_type: string, created_by: string
-  } = await req.json();
+export default async function assignDriver(req: Request, res: Response) {
+  const { driverId, routeId, date } = req.body;
 
-  const { error } = await supabaseAdmin.from('schedules').insert({
-    driver_id, route_id, scheduled_date, shift_type, created_by
-  });
+  if (!driverId || !routeId || !date) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-  return new Response(JSON.stringify({ success: !error, error }), { status: error ? 400 : 200 });
+  try {
+    const { data, error } = await supabaseAdmin.from('driver_assignments').insert([{ driver_id: driverId, route_id: routeId, assignment_date: date }]);
+    if (error) throw error;
+
+    console.log('[assignDriver] Driver assigned:', driverId, routeId, date);
+    res.status(200).json({ message: 'Driver assigned successfully', data });
+  } catch (error: any) {
+    console.error('[assignDriver] Error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 }

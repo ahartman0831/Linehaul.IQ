@@ -1,14 +1,25 @@
+
 import { Request, Response } from 'express';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { OpenAI } from 'openai';
+import fs from 'fs';
+import path from 'path';
 
-export async function getPhotoScorecard(req: Request, res: Response): Promise<void> {
-  const { driverId } = req.query;
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  const { data, error } = await supabaseAdmin
-    .from('dispatch_scores')
-    .select('*, dispatch_photos(*)')
-    .eq('dispatch_photos.driver_id', driverId);
+export default async function getPhotoScorecard(req: Request, res: Response) {
+  try {
+    const { photo_url } = req.body;
+    const promptTemplate = fs.readFileSync(path.resolve(__dirname, '../../../prompts/dispatch/hook_photo_scorer.txt'), 'utf-8');
+    const prompt = promptTemplate.replace('{{photo_url}}', photo_url);
 
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(200).json(data);
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: 'user', content: prompt }],
+      model: 'gpt-4-turbo'
+    });
+
+    const scorecard = completion.choices[0]?.message?.content?.trim() || 'No score generated';
+    res.status(200).json({ scorecard });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 }
